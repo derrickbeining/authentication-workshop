@@ -6,6 +6,7 @@ const INITIALIZE = 'INITIALIZE_USERS';
 const CREATE     = 'CREATE_USER';
 export const REMOVE = 'REMOVE_USER';
 const UPDATE     = 'UPDATE_USER';
+const LOGIN = 'LOGIN';
 
 
 /* ------------   ACTION CREATORS     ------------------ */

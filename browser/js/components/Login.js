@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import {loginUser} from '../redux/currentUser'
 /* -----------------    COMPONENT     ------------------ */
 
 class Login extends React.Component {
@@ -64,8 +64,14 @@ class Login extends React.Component {
 }
 
 /* -----------------    CONTAINER     ------------------ */
+const user = {"email": "doesnotexist@email.com", "password": "abcdefg"}
 
 const mapState = () => ({ message: 'Log in' });
-const mapDispatch = null;
+const mapDispatch = (dispatch) =>{
+    return{
+        dispatch(loginUser(user))
+    }
+
+};
 
 export default connect(mapState, mapDispatch)(Login);

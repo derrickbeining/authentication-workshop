@@ -11,15 +11,16 @@ app.use(require('./body-parsing.middleware'));
 
 app.use(require('./sessions.middleware'));
 
-app.use(function (req, res, next) {
-  console.log('SESSION: ', req.session);
-  next();
-});
+
 
 // "Responding" middleware (may send a response back to client)
 
 app.use('/api', require('../api/api.router'));
-app.use('/login', require())
+app.use('/login', require('./login'));
+app.use(function (req, res, next) {
+    console.log('SESSION: ', req.session);
+    next();
+});
 
 var validFrontendRoutes = [ '/', '/stories', '/users', '/stories/:id', '/users/:id', '/signup', '/login' ];
 var indexPath = path.join(__dirname, '..', '..', 'browser', 'index.html');
