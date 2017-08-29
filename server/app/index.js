@@ -18,6 +18,7 @@ app.use(require('./sessions.middleware'));
 app.use('/api', require('../api/api.router'));
 app.use('/login', require('./login'));
 app.use('/signup', require('./signup'));
+app.use('/logout', require('./logout'));
 app.use(function (req, res, next) {
   console.log('SESSION: ', req.session);
   next();

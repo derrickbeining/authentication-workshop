@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import history from '../history';
+import { logoutUser } from '../redux/currentUser' ;
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -77,11 +78,14 @@ class Navbar extends React.Component {
 
 const mapProps = null;
 
-const mapDispatch = dispatch => ({
-  logout: () => {
-    console.log('You signed out. Sorta.');
-    history.push('/');
-  }
-});
+const mapDispatch = (dispatch) => {
+     return {
+         logout: () => {
+             dispatch(logoutUser());
+             console.log('You signed out. Sorta.');
+             history.push('/');
+         }
+     }
+};
 
 export default withRouter(connect(mapProps, mapDispatch)(Navbar));

@@ -46,9 +46,15 @@ export const loginUser = (credentials) => dispatch => {
 };
 
 // optimistic
-export const logoutUser = id => dispatch => {
-    // dispatch(logout(id));
-
+export const logoutUser = () => dispatch => {
+    axios.post('/logout')
+        .then( res =>{
+            console.log('you are logout!', res);
+            dispatch(logout);
+        })
+        .catch(err => {
+                console.error(err);
+            });
 };
 
 export const signup = (credentials) => dispatch => {
