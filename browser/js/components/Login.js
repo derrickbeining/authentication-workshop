@@ -1,20 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {loginUser} from '../redux/currentUser'
 /* -----------------    COMPONENT     ------------------ */
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.onLoginSubmit = this.onLoginSubmit.bind(this);
   }
 
-  render() {
-    const { message } = this.props;
+  render () {
+    const {message} = this.props;
     return (
       <div className="signin-container">
         <div className="buffer local">
-          <form onSubmit={this.onLoginSubmit}>
+          <form onSubmit={this.props.handleSubmit}>
             <div className="form-group">
               <label>email</label>
               <input
@@ -25,13 +24,13 @@ class Login extends React.Component {
               />
             </div>
             <div className="form-group">
-                <label>password</label>
-                <input
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  required
-                />
+              <label>password</label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                required
+              />
             </div>
             <button type="submit" className="btn btn-block btn-primary">{message}</button>
           </form>
@@ -56,21 +55,28 @@ class Login extends React.Component {
     );
   }
 
-  onLoginSubmit(event) {
-    const { message } = this.props;
-    event.preventDefault();
-    console.log(`${message} isn't implemented yet`);
-  }
+  // onLoginSubmit (event) {
+  //   const {message} = this.props;
+  //   event.preventDefault();
+  //   console.log(`${message} isn't implemented yet`);
+  // }
 }
 
 /* -----------------    CONTAINER     ------------------ */
-const user = {"email": "doesnotexist@email.com", "password": "abcdefg"}
+// const user = {"email": "doesnotexist@email.com", "password": "abcdefg"}
 
-const mapState = () => ({ message: 'Log in' });
-const mapDispatch = (dispatch) =>{
-    return{
-        dispatch(loginUser(user))
+const mapState = () => ({message: 'Log in'});
+const mapDispatch = (dispatch) => {
+  return {
+    handleSubmit: function (event) {
+      event.preventDefault()
+      const user = {
+        email: event.target.email.value,
+        password: event.target.password.value
+      }
+      dispatch(loginUser(user))
     }
+  }
 
 };
 

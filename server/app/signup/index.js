@@ -1,9 +1,9 @@
-const loginRouter = require('express').Router()
+const signupRouter = require('express').Router()
 const User = require('../../db').model('user')
 
-loginRouter
+signupRouter
   .post('/', (req, res, next) => {
-    User.findOne({
+    User.findOrCreate({
       where: req.body
     })
       .then(user => {
@@ -17,4 +17,4 @@ loginRouter
       .catch(next)
   })
 
-module.exports = loginRouter;
+module.exports = signupRouter;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {signup} from '../redux/currentUser';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -7,15 +8,14 @@ class Signup extends React.Component {
 
   constructor(props) {
     super(props);
-    this.onSignupSubmit = this.onSignupSubmit.bind(this);
   }
 
-  render() {
-    const { message } = this.props;
+  render () {
+
     return (
       <div className="signin-container">
         <div className="buffer local">
-          <form onSubmit={this.onSignupSubmit}>
+          <form onSubmit={this.props.onSubmit}>
             <div className="form-group">
               <label>email</label>
               <input
@@ -34,7 +34,7 @@ class Signup extends React.Component {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-block btn-primary">{message}</button>
+            <button type="submit" className="btn btn-block btn-primary">Sign Up!</button>
           </form>
         </div>
         <div className="or buffer">
@@ -49,7 +49,7 @@ class Signup extends React.Component {
               href="/auth/google"
               className="btn btn-social btn-google">
               <i className="fa fa-google" />
-              <span>{message} with Google</span>
+              <span>Signup with Google</span>
             </a>
           </p>
         </div>
@@ -57,16 +57,22 @@ class Signup extends React.Component {
     );
   }
 
-  onSignupSubmit(event) {
-    const { message } = this.props;
-    event.preventDefault();
-    console.log(`${message} isn't implemented yet`);
-  }
 }
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = () => ({ message: 'Sign up' });
-const mapDispatch = null;
 
-export default connect(mapState, mapDispatch)(Signup);
+const mapDispatch = (dispatch) => {
+  return {
+    onSubmit: (event) => {
+      event.preventDefault();
+      const credentials = {
+        email: event.target.email.value,
+        password: event.target.password.value
+      }
+      dispatch(signup(credentials))
+    }
+  }
+}
+
+export default connect(null, mapDispatch)(Signup);
