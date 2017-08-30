@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Router } from 'react-router';
-import { Route, Switch } from 'react-router-dom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Router} from 'react-router';
+import {Route, Switch} from 'react-router-dom';
 import history from './history';
 import Root from './components/Root';
 import Home from './components/Home';
@@ -11,8 +11,9 @@ import UserList from './components/User/UserList';
 import UserDetail from './components/User/UserDetail';
 import StoryList from './components/Story/StoryList';
 import StoryDetail from './components/Story/StoryDetail';
-import { fetchUsers } from './redux/users';
-import { fetchStories } from './redux/stories';
+import {fetchUsers} from './redux/users';
+import {fetchStories} from './redux/stories';
+import {checkSession} from './redux/currentUser'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -50,6 +51,8 @@ const mapDispatch = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchUsers());
     dispatch(fetchStories());
+    dispatch(checkSession())
+
     // what other data might we want to fetch on app load?
   }
 });

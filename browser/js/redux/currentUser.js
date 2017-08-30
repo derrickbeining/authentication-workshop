@@ -3,15 +3,16 @@ import axios from 'axios';
 /* -----------------    ACTION TYPES ------------------ */
 
 // const INITIALIZE = 'INITIALIZE_USER';
-export const LOGOUT = 'LOGOUT';
-export const LOGIN = 'LOGIN';
-export const SIGNUP = 'SIGNUP'
+const LOGOUT = 'LOGOUT';
+const LOGIN = 'LOGIN';
+const CHECK_SESSION = 'CHECK_SESSION';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const login = currentUser => ({type: LOGIN, currentUser});
-const logout = () => ({type: LOGOUT});
+export const login = currentUser => ({type: LOGIN, currentUser});
+export const logout = () => ({type: LOGOUT});
+// export const checkSession = (user) => ({type: CHECK_SESSION, user})
 
 
 
@@ -25,6 +26,9 @@ export default function reducer (currentUser = {}, action) {
 
     case LOGOUT:
       return {};
+
+    case CHECK_SESSION:
+      return action.user
 
     default:
       return currentUser;
@@ -58,7 +62,7 @@ export const logoutUser = () => dispatch => {
     });
 };
 
-export const signup = (credentials) => dispatch => {
+export const addUser = (credentials) => dispatch => {
   return axios.post('/signup', credentials)
     .then(res => res.data)
     .then(newUser => {
@@ -66,5 +70,14 @@ export const signup = (credentials) => dispatch => {
       return newUser
     })
     .catch(err => console.error(err))
+}
+
+export const checkSession = () => dispatch => {
+  return axios.get('/api/auth/me')
+    .then(res => res.data)
+    .then(user => {
+      dispatch(login(user))
+      return user
+    })
 }
 

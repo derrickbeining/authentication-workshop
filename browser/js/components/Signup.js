@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {signup} from '../redux/currentUser';
+import {addUser} from '../redux/users';
 import history from '../history';
 
 /* -----------------    COMPONENT     ------------------ */
@@ -72,7 +72,7 @@ const mapDispatch = (dispatch) => {
         email: event.target.email.value,
         password: event.target.password.value
       }
-      dispatch(signup(credentials))
+      dispatch(addUser(credentials))
         .then(user => history.push(`/users/${user.id}`))
     }
   }
