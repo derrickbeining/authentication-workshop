@@ -2,6 +2,7 @@
 
 var app = require('express')();
 var path = require('path');
+const passport = require('passport')
 
 // "Enhancing" middleware (does not send response, server-side effects only)
 
@@ -11,6 +12,8 @@ app.use(require('./body-parsing.middleware'));
 
 app.use(require('./sessions.middleware'));
 
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 // "Responding" middleware (may send a response back to client)
