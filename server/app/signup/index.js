@@ -6,6 +6,7 @@ signupRouter
     User.findOrCreate({
       where: req.body
     })
+      .then(user => user[ 0 ])
       .then(user => {
         if (user) {
           req.session.userId = user.id;

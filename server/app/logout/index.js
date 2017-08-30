@@ -2,8 +2,8 @@ const logoutRouter = require('express').Router()
 
 logoutRouter
     .post('/', (req, res, next) => {
-        req.session = null;
-        res.status(204).send('ha');
+        req.session.destroy();
+        res.sendStatus(204);
     })
 
 module.exports = logoutRouter;

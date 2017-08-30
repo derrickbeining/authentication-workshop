@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {loginUser} from '../redux/currentUser'
+import history from '../history';
 /* -----------------    COMPONENT     ------------------ */
 
 class Login extends React.Component {
@@ -75,6 +76,8 @@ const mapDispatch = (dispatch) => {
         password: event.target.password.value
       }
       dispatch(loginUser(user))
+        .then(user => history.push(`/users/${user.id}`))
+
     }
   }
 

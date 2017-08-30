@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import {signup} from '../redux/currentUser';
+import history from '../history';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -71,8 +73,9 @@ const mapDispatch = (dispatch) => {
         password: event.target.password.value
       }
       dispatch(signup(credentials))
+        .then(user => history.push(`/users/${user.id}`))
     }
   }
 }
 
-export default connect(null, mapDispatch)(Signup);
+export default withRouter(connect(null, mapDispatch)(Signup));

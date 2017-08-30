@@ -18,51 +18,53 @@ const logout = () => ({type: LOGOUT});
 /* ------------       REDUCER     ------------------ */
 
 export default function reducer (currentUser = {}, action) {
-    switch (action.type) {
+  switch (action.type) {
 
-        case LOGIN:
-            return action.currentUser;
+    case LOGIN:
+      return action.currentUser;
 
-        case LOGOUT:
-            return {};
+    case LOGOUT:
+      return {};
 
-        default:
-            return currentUser;
-    }
+    default:
+      return currentUser;
+  }
 }
 
 
 /* ------------   THUNK CREATORS     ------------------ */
 
 export const loginUser = (credentials) => dispatch => {
-    axios.post('/login', credentials)
-        .then(res => res.data)
-        .then(user => {
-            dispatch(login(user))
-        })
-        .catch(err => {
-            console.error(err);
-        });
+  return axios.post('/login', credentials)
+    .then(res => res.data)
+    .then(user => {
+      dispatch(login(user))
+      return user
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
 // optimistic
 export const logoutUser = () => dispatch => {
-    axios.post('/logout')
-        .then( res =>{
-            console.log('you are logout!', res);
-            dispatch(logout);
-        })
-        .catch(err => {
-                console.error(err);
-            });
+  axios.post('/logout')
+    .then(res => {
+      console.log('you are logout!', res);
+      dispatch(logout());
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
 export const signup = (credentials) => dispatch => {
-    axios.post('/signup', credentials)
-        .then(res => res.data)
-        .then(newUser => {
-            dispatch(login(newUser))
-        })
-        .catch(err => console.error(err))
+  return axios.post('/signup', credentials)
+    .then(res => res.data)
+    .then(newUser => {
+      dispatch(login(newUser))
+      return newUser
+    })
+    .catch(err => console.error(err))
 }
 

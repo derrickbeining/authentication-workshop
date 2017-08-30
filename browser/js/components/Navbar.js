@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link, NavLink, withRouter} from 'react-router-dom';
 import history from '../history';
-import { logoutUser } from '../redux/currentUser' ;
+import {logoutUser} from '../redux/currentUser';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -13,7 +13,7 @@ class Navbar extends React.Component {
     this.renderLogout = this.renderLogout.bind(this);
   }
 
-  render() {
+  render () {
     return (
       <nav className="navbar navbar-default">
         <div className="container">
@@ -38,19 +38,19 @@ class Navbar extends React.Component {
                 <NavLink to="/stories" activeClassName="active">stories</NavLink>
               </li>
             </ul>
-            { this.renderLogout() }
-            { this.renderLoginSignup() }
+            {this.renderLogout()}
+            {this.renderLoginSignup()}
           </div>
         </div>
       </nav>
     );
   }
 
-  renderLoginSignup() {
+  renderLoginSignup () {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-         <NavLink to="/signup" activeClassName="active">signup</NavLink>
+          <NavLink to="/signup" activeClassName="active">signup</NavLink>
         </li>
         <li>
           <NavLink to="/login" activeClassName="active">login</NavLink>
@@ -59,14 +59,14 @@ class Navbar extends React.Component {
     );
   }
 
-  renderLogout() {
+  renderLogout () {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-        <button
-          className="navbar-btn btn btn-default"
-          onClick={this.props.logout}>
-          logout
+          <button
+            className="navbar-btn btn btn-default"
+            onClick={this.props.logout}>
+            logout
         </button>
         </li>
       </ul>
@@ -79,13 +79,12 @@ class Navbar extends React.Component {
 const mapProps = null;
 
 const mapDispatch = (dispatch) => {
-     return {
-         logout: () => {
-             dispatch(logoutUser());
-             console.log('You signed out. Sorta.');
-             history.push('/');
-         }
-     }
+  return {
+    logout: () => {
+      dispatch(logoutUser());
+      history.push('/');
+    }
+  }
 };
 
 export default withRouter(connect(mapProps, mapDispatch)(Navbar));
